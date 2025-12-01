@@ -1,2 +1,3 @@
-# suppl_to_Fang_Wang_et_al_2025
+# Scripts, figures and supplementary information for Fang Wang et al (Iovino lab) manuscript.
+
 Repository for Fang Wang et al. manuscript 
