@@ -1,6 +1,6 @@
 # Scripts, figures and supplementary information for Fang Wang et al (Iovino lab) manuscript.
 
-Repository for Fang Wang et al. manuscript.
+Contents of the repository for Fang Wang et al. manuscript:
 
 1. DEG RNA-seq analysis
 2. DEE RNA-seq analysis
