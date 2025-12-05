@@ -2,20 +2,20 @@
 
 Contents of the repository for Fang Wang et al. manuscript:
 
-RNA-seq:
+* Panels
 
-1. RNA-seq data processing
-2. DEG RNA-seq analysis
-3. DEE RNA-seq analysis
-4. Gene Ontology
+* RNA-seq:
 
-Cut&Tag:
+  1. DEG RNA-seq analysis
+  2. DEE RNA-seq analysis
+  3. Gene Ontology
 
-5. Cut&Tag data processing
-6. Differential analysis of binned Cut&Tag signal
-7. ChromHMM segmentation
+* Cut&Tag:
 
-Comparative analyses:
+  1. Differential analysis of binned Cut&Tag signal
+  2. ChromHMM segmentation
 
-8. StereoGene-based signal correlation analysis
-9. Association between ChromHMM state changes and differential collapsed exon expression
+* Comparative analyses:
+
+  1. StereoGene-based signal correlation analysis
+  2. Association between ChromHMM state changes and differential collapsed exon expression
