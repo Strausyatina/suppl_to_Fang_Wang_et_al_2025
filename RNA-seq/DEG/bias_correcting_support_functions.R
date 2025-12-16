@@ -1,11 +1,17 @@
-## =========
+## ===============================================================
+## Supplementary script for Fang et al. paper.
+## Functions for DEG analysis; 
+##   correction: using genes with the least variance.
+## Author: A. Mendelevich
+## ===============================================================
 ## GET DATA:
-## =========
+## ===============================================================
 get_sample_genes_counts <- function(counts_df, spike_name = "ERCC"){
   ### F: Removes genes which names start with a particular word (spike_name); 
   ### counts_df should have 1st column with gene_id. 
   return(counts_df[!startsWith(counts_df[, 1], spike_name), ])
 }
+#
 counts_paired_pooling <- function(counts_df){
   ### This funclion is needed only if you have a paired structure (like initial seq and deep re-seq)
   ### names should be "GROUP_REP_SEMIGROUP", it is expected that semigroups will be in pairs (like seq and re-seq)
@@ -19,6 +25,7 @@ counts_paired_pooling <- function(counts_df){
                      lapply(., function(x) paste(x[1:2], collapse='_')) %>% unlist()
   ))
 }
+#
 get_dgList <- function(counts_df, group_grep = c("WT", "KO"), thr_cpm = 1, n_cpm = NA){
   if(is.na(n_cpm)) n_cpm = floor((ncol(counts_df)-1) / 2)
   sampleType = rep(0, ncol(counts_df) -1) 
@@ -32,9 +39,9 @@ get_dgList <- function(counts_df, group_grep = c("WT", "KO"), thr_cpm = 1, n_cpm
   return(list(dgList=dgList, cpm=cpm(dgList)))
 }
 #
-## =========
+## ===============================================================
 ## FIT DATA:
-## =========
+## ===============================================================
 select_housekeeping <- function(dgList, cpm_mean_thr = 100){
   ### F: Select genes with low variance.
   cpm_stats_df = data.frame(gene_id = dgList$genes$genes,
@@ -44,6 +51,7 @@ select_housekeeping <- function(dgList, cpm_mean_thr = 100){
   genes_stable = cpm_stats_df[cpm_stats_df$low_var, "gene_id"]
   return(list(cpm_stats_df=cpm_stats_df, genes_stable=genes_stable))
 }
+#
 fit_housekeeping <- function(dgList, cpm_mean_thr = 100, genes_stable = NA, 
                              correction_mode = "housekeeping_geommean", robustGLM = F){
   ### (!) correction_mode %in% c("housekeeping_size", "housekeeping_geommean")
@@ -100,9 +108,9 @@ fit_housekeeping <- function(dgList, cpm_mean_thr = 100, genes_stable = NA,
   ))
 }
 #
-## =====
+## ===============================================================
 ## PLOT:
-## =====
+## ===============================================================
 table_for_de_plots <- function(res_fit, fdr_thr = 0.001, log2FC_thr = 1){
   res = res_fit$lrt$table
   res$neglog10P = -log10(res$PValue)
@@ -117,6 +125,7 @@ table_for_de_plots <- function(res_fit, fdr_thr = 0.001, log2FC_thr = 1){
                     id_v = res_fit$lrt$genes$genes, 
                     res))
 }
+#
 plot_de_plots <- function(tab_de, thr_cpm = 1){
   nonsignificant_stats =
     do.call(rbind, list(tab_de[!tab_de$significant, "logFC"] %>% summary(),
@@ -193,9 +202,9 @@ plot_de_plots <- function(tab_de, thr_cpm = 1){
   ))
 }
 #
-## ==============================
+## ===============================================================
 ## ONE FUNCTION TO RULE THEM ALL:
-## ==============================
+## ===============================================================
 perform_de_grouped_norm <- function(counts_df_lst, 
                              spike_name = "ERCC", group_grep = c("WT", "KO"), 
                              thr_cpm = 1, n_cpm = NA, cpm_mean_thr = 100,

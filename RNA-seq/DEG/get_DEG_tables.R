@@ -1,9 +1,17 @@
+## ===============================================================
+## Supplementary script for Fang et al. paper.
+## DEG analysis; correction: using genes with the least variance.
+## Author: A. Mendelevich
+## ===============================================================
+#
 library(tidyverse)
 library(edgeR)
-
+#
 source("./bias_correcting_support_functions.R")
+#
+## ===============================================================
 
-# GO + GV (WT vs cKO):
+## GO + GV (WT vs cKO):
 
 counts_GV = read.delim(file = "./data/GV_cKO_MLL34.counts.tsv", header = T)
 counts_GO = read.delim(file = "./data/GOp14_cKO_MLL34.counts.tsv", header = T)
@@ -30,7 +38,7 @@ res05[[2]]$cpm_df %>%
   write_delim(file = "./data/cpm.GO_p14_pooled.WT_cKO.tsv", delim = "\t", col_names = T)
 
 
-# Mll3 + Mll4 + Mll34 cKO (WT vs cKO):
+## Mll3 + Mll4 + Mll34 cKO (WT vs cKO):
 
 comp_cKO_Mll = c("cKO_MLL3", "cKO_MLL4", "cKO_MLL34")
 dRNAseq_Mll34cKO = "./data/"
