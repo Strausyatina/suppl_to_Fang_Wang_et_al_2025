@@ -4,13 +4,13 @@ library(enrichplot)
 library(RColorBrewer)
 
 #read in GV/GO DKO results
-edgeR_result_files<-dir("/data/iovino/mouse_oocytes/DE_edgeR/",pattern="*FC2_fdr05.tsv",full.names=TRUE)
+edgeR_result_files<-dir("DE_edgeR/",pattern="*FC2_fdr05.tsv",full.names=TRUE)
 edgeR_result_files<-edgeR_result_files[!grepl("MLL",edgeR_result_files)]
 edgeR_resList<-lapply(edgeR_result_files,function(X)read.table(X,sep="\t",quote="",header=TRUE))
 names(edgeR_resList)<-unlist(lapply(strsplit(basename(edgeR_result_files),split="\\."),function(X)X[2]))
 
 set_custom_wd<-function(label){
-  wdir<-file.path("/data/iovino/mouse_oocytes/20250602_manuscript_figures",label)
+  wdir<-file.path("RNA_manuscript_figures",label)
   system(paste0('mkdir -p ', wdir))
   setwd(wdir)
   getwd()
@@ -71,6 +71,6 @@ produce_results<-function(table,label){
 
 mapply(FUN=function(X,Y)produce_results(X,Y),edgeR_resList,names(edgeR_resList))
 
-sink("/data/iovino/mouse_oocytes/20250602_manuscript_figures/Katarzyna_Rscripts/GO_sessionInfo.txt")
+sink("RNA_manuscript_figures/GO_sessionInfo.txt")
 sessionInfo()
 sink()
