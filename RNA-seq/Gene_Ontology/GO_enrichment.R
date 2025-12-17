@@ -3,6 +3,10 @@ library("org.Mm.eg.db")
 library(enrichplot)
 library(RColorBrewer)
 
+#set working directory to source file directory as all paths are relative to it
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+
 #read in GV/GO DKO results
 edgeR_result_files<-dir("../DEG/data/",pattern="*FC2_fdr05.tsv",full.names=TRUE)
 edgeR_result_files<-edgeR_result_files[!grepl("MLL",edgeR_result_files)]
@@ -10,7 +14,7 @@ edgeR_resList<-lapply(edgeR_result_files,function(X)read.table(X,sep="\t",quote=
 names(edgeR_resList)<-unlist(lapply(strsplit(basename(edgeR_result_files),split="\\."),function(X)X[2]))
 
 set_custom_wd<-function(label){
-  wdir<-file.path(label)
+  wdir<-file.path(gwdir,label)
   system(paste0('mkdir -p ', wdir))
   setwd(wdir)
   getwd()

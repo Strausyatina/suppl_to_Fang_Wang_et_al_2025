@@ -1,5 +1,9 @@
 library(ggplot2)
 
+#set working directory to source file directory as all paths are relative to it
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+getwd()
 
 # for GO and GV stage oocyte, produce one PCA plot,each
 #for MLL3/4 single and double knockouts should be merged into one matrix and put on one PCA plot
@@ -58,7 +62,7 @@ lapply(pca_input,function(X)sum(is.na(X)))
 ngroupv<-c(2,2,4)
 
 set_custom_wd<-function(label){
-  wdir<-file.path("RNA_manuscript_figures",label)
+  wdir<-file.path(gwdir,"PCA_plots",label)
   system(paste0('mkdir -p ', wdir))
   setwd(wdir)
   getwd()
@@ -135,7 +139,12 @@ produce_results<-function(table,label,ngroups){
 
 mapply(FUN=function(X,Y,Z)produce_results(X,Y,Z),pca_input,names(pca_input),ngroupv)
 
-sink("RNA_manuscript_figures/PCA_sessionInfo.txt")
+#set working directory to source file directory as all paths are relative to it
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+getwd()
+
+sink("PCA_plots/PCA_sessionInfo.txt")
 sessionInfo()
 sink()
 

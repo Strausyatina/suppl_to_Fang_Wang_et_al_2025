@@ -1,5 +1,10 @@
 library(ggplot2)
 
+#set working directory to source file directory as all paths are relative to it
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+getwd()
+
 #read in GV/GO DKO results
 edgeR_result_files<-dir("../../RNA-seq/DEG/data/",pattern="*FC2_fdr05.tsv",full.names=TRUE)
 edgeR_result_files<-edgeR_result_files[!grepl("MLL",edgeR_result_files)]
@@ -15,7 +20,7 @@ names(edgeR_resList)[3:5]<-paste0("GV_",gsub("\\.FC2","",unlist(lapply(strsplit(
 
 
 set_custom_wd<-function(label){
-  wdir<-file.path("RNA_manuscript_figures",label)
+  wdir<-file.path(gwdir,"MA_Volcano_plots",label)
   system(paste0('mkdir -p ', wdir))
   setwd(wdir)
   getwd()
@@ -117,7 +122,11 @@ produce_results<-function(table,label){
 
 mapply(FUN=function(X,Y)produce_results(X,Y),edgeR_resList,names(edgeR_resList))
 
-sink("RNA_manuscript_figures/MA_Volcano_sessionInfo.txt")
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+getwd()
+
+sink("MA_Volcano_plots/MA_Volcano_sessionInfo.txt")
 sessionInfo()
 sink()
 

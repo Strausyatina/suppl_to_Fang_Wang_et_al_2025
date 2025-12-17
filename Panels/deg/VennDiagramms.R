@@ -2,16 +2,21 @@ library(ggvenn)
 library(ggplot2)
 library(eulerr)
 
-main_output_folder<-"RNA_manuscript_figures"
+#set working directory to source file directory as all paths are relative to it
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+getwd()
+
+main_output_folder<-"VennDiagramms"
 subfolder_names<-c("GV_GO","MLL3_MLL4_MLL3.4")
 
 top_list<-vector("list",length(subfolder_names))
 names(top_list)<-subfolder_names
 
 #specify file order manually
-top_list[["GV_GO"]]<-c("../../RNA-seq/DEG/data/DE_edgeR.GV_pooled.WT_cKO.FC2_fdr05.tsv","../../RNA-seq/DEG/data/DE_edgeR.GO_p14_pooled.WT_cKO.FC2_fdr05.tsv")
+top_list[["GV_GO"]]<-c("../../../../RNA-seq/DEG/data/DE_edgeR.GV_pooled.WT_cKO.FC2_fdr05.tsv","../../../../RNA-seq/DEG/data/DE_edgeR.GO_p14_pooled.WT_cKO.FC2_fdr05.tsv")
 
-top_list[["MLL3_MLL4_MLL3.4"]]<-c("../../RNA-seq/DEG/data/DE_edgeR.GV.Mll_3_4_34.WT_cKO_MLL3.FC2_fdr05.tsv","../../RNA-seq/DEG/data/DE_edgeR.GV.Mll_3_4_34.WT_cKO_MLL4.FC2_fdr05.tsv","../../RNA-seq/DEG/data/DE_edgeR.GV.Mll_3_4_34.WT_cKO_MLL34.FC2_fdr05.tsv")
+top_list[["MLL3_MLL4_MLL3.4"]]<-c("../../../../RNA-seq/DEG/data/DE_edgeR.GV.Mll_3_4_34.WT_cKO_MLL3.FC2_fdr05.tsv","../../../../RNA-seq/DEG/data/DE_edgeR.GV.Mll_3_4_34.WT_cKO_MLL4.FC2_fdr05.tsv","../../../../RNA-seq/DEG/data/DE_edgeR.GV.Mll_3_4_34.WT_cKO_MLL34.FC2_fdr05.tsv")
 
 MLL_values<-grepl("MLL",names(top_list))
 
@@ -19,7 +24,7 @@ MLL_values<-grepl("MLL",names(top_list))
 ##define workflow steps###########################################################################
 
 set_custom_wd<-function(label){
-  wdir<-file.path(main_output_folder,label)
+  wdir<-file.path(gwdir,main_output_folder,label)
   system(paste0('mkdir -p ', wdir))
   setwd(wdir)
   getwd()
@@ -77,6 +82,9 @@ produce_results<-function(file_list,MLL_value){
 
 mapply(FUN=function(X,Y)produce_results(X,Y),top_list,MLL_values)
 
-sink("RNA_manuscript_figures/VennDiagram_sessionInfo.txt")
+gwdir<-getSrcDirectory(function(){})[1]
+setwd(gwdir)
+
+sink("VennDiagramms/VennDiagram_sessionInfo.txt")
 sessionInfo()
 sink()
