@@ -1,10 +1,5 @@
-#library(FactoMineR)
 library(ggplot2)
 
-
-#library(showtext)
-#font_add("Arial", "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf")  # Use the actual file path
-#showtext_auto()
 
 # for GO and GV stage oocyte, produce one PCA plot,each
 #for MLL3/4 single and double knockouts should be merged into one matrix and put on one PCA plot
@@ -86,7 +81,6 @@ calculate_plot_PCA_2groups<-function(table,label){
   geom_vline(xintercept = 0, linetype = "dotted", color = "black") + # Vertical dotted line
   theme_classic(base_size = 12) + # Clean background
   theme(
-      #text = element_text(family = "Arial"), # Nature-like font
       axis.text = element_text(size = 10),
       axis.title = element_text(size = 12, face = "bold"),
       legend.position = "top",
@@ -119,7 +113,6 @@ calculate_plot_PCA_4groups<-function(table,label){
     geom_vline(xintercept = 0, linetype = "dotted", color = "black") + # Vertical dotted line
     theme_classic(base_size = 12) + # Clean background
     theme(
-      #text = element_text(family = "Arial"), # Nature-like font
       axis.text = element_text(size = 10),
       axis.title = element_text(size = 12, face = "bold"),
       legend.position = "right",
@@ -141,7 +134,6 @@ produce_results<-function(table,label,ngroups){
 }
 
 mapply(FUN=function(X,Y,Z)produce_results(X,Y,Z),pca_input,names(pca_input),ngroupv)
-#mapply(FUN=function(X,Y,Z)produce_results(X,Y,Z),log_cpm_List,names(log_cpm_List),ngroupv)
 
 sink("RNA_manuscript_figures/PCA_sessionInfo.txt")
 sessionInfo()
