@@ -7,11 +7,11 @@ system(paste0('mkdir -p ', wdir))
 setwd(wdir)
 getwd()
 
-cpm<-read.table("DE_edgeR/cpm.id_v.GV_pooled.WT_cKO.tsv",header=TRUE)
+cpm<-read.table("../../RNA-seq/DEG/data/cpm.id_v.GV_pooled.WT_cKO.tsv",header=TRUE)
 logcpm<-log2(cpm[,-1]+0.1)
 rownames(logcpm)<-cpm[,1]
 
-GOterm<-system("grep 'regulation\\ of\\ lipid\\ metabolic\\ process' RNA_manuscript_figures/GV_pooled/GV_pooled_DOWN_eGO.table.tsv",intern=TRUE)
+GOterm<-system("grep 'regulation\\ of\\ lipid\\ metabolic\\ process' ../../RNA-seq/Gene_Ontology/GV_pooled/GV_pooled_DOWN_eGO.table.tsv",intern=TRUE)
 GOclean<-unlist(strsplit(unlist(strsplit(GOterm[1],split="\t"))[8],split="/"))
 
 #for the list of gene symbols belonging to the chosen GO term, get ensembl gene IDs from the gtf
@@ -38,7 +38,7 @@ ggsave("RegulationOfLipidMetabolicProcess_heatmap.png",plot=heatmap_plot)
 ggsave("RegulationOfLipidMetabolicProcess_heatmap.pdf",plot=heatmap_plot)
 
 
-sink("RNA_manuscript_figures/Katarzyna_Rscripts/GOprocess_heatmap_sessionInfo.txt")
+sink("RNA_manuscript_figures/GOprocess_heatmap_sessionInfo.txt")
 sessionInfo()
 sink()
 
