@@ -3,8 +3,8 @@ Stereogene[V2.50] for calculating the positional correlation between and among t
 We calculated the correlation between and among the chromatin marks and rna as below cases:
 - Dmod_v_Dmod: Changing chromatin modification between KO and WT of Mark A vs Mark B.
 - Dmod_v_Drna: Changing chromatin modification between KO and WT of Mark A vs Changing RNA expression between KO and WT.
-- mod_v_mod: Chromatin modification mark A from speficific condition to the mark B from the same condition.
-- mod_v_rna: Chromatin modification mark A from speficific condition to the RNA expression` from the same condition.
+- mod_v_mod: Chromatin modification mark A from specific condition to the mark B from the same condition.
+- mod_v_rna: Chromatin modification mark A from specific condition to the RNA expression` from the same condition.
 
 In the respective directories, runstereogene.sh is the script processing the input, running the stereogene and delivering the output.
 
@@ -44,3 +44,4 @@ Directory script contains the DistancePlot.R, DensityPlot.R
     - Input: It takes the case directory (ex. Dmod_v_Dmod) as input, please change this path in the script, also change the modality type of your interest. Then script looks for .fg and .bkg file from all the comparisons from this case.
     - Output: density plots as a pdf file.
     - Usages: Rscript DensityPlot.R
+
