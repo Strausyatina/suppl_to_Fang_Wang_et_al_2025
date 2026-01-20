@@ -33,7 +33,7 @@ Output description:
    -  .dist: contains the distance, its foreground, and background correlation value.
    -  .r: contain the R script to generate the plot.
    -  report: This directory contains the output of the .r script.
-
+<br>
 <ins>Customized Rscripts</ins>:<br>
 Directory **Script** contains the DistancePlot.R, DensityPlot.R
 - DistancePlot.R:
@@ -44,6 +44,7 @@ Directory **Script** contains the DistancePlot.R, DensityPlot.R
     - Input: It takes the case directory (ex. Dmod_v_Dmod) as input, please change this path in the script, also change the modality type of your interest. Then script looks for .fg and .bkg file from all the comparisons from this case.
     - Output: density plots as a pdf file.
     - Usages: Rscript DensityPlot.R
+
 
 
 
