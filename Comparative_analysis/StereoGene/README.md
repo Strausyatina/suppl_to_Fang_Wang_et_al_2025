@@ -1,6 +1,6 @@
 Stereogene[V2.50] for calculating the positional correlation between and among the chromatin marks and RNA expression.
 
-We calculated the correlation between and among the histone and rna as below:
+We calculated the correlation between and among the chromatin marks and rna as below cases:
 - Dmod_v_Dmod: Changing chromatin modification between KO and WT of Mark A vs Mark B.
 - Dmod_v_Drna: Changing chromatin modification between KO and WT of Mark A vs Changing RNA expression between KO and WT.
 - mod_v_mod: Chromatin modification mark A from speficific condition to the mark B from the same condition.
@@ -26,4 +26,21 @@ Parameter description:
   - writeDistr: specify if need the raw output of the distribution.
 
 Output description:
- -
+ - It will output the directory for each comparison with corresponding comparison name.
+ - Resulting directory contains the following file formats:
+   -  .bkg: contains the correlation values for the background
+   -  .fg: contaoins the correlation values for the foreground.
+   -  .dist: contains the distance, its foreground, and background correlation value.
+   -  .r: contain the R script to generate the plot.
+   -  report: This directory contains the output of the .r script.
+
+Customized Rscripts:
+Directory script contains the DistancePlot.R, DensityPlot.R
+- DistancePlot.R:
+    - Input: It takes the case directory (ex. Dmod_v_Dmod) as input, please change this path in the script, also change the modality type of your interest. Then script looks for .dist file from all the comparisons from this case.
+    - Output: distance plots as a pdf file.
+    - Usage: Rscript DistancePlot.R
+- DensityPlot.R
+    - Input: It takes the case directory (ex. Dmod_v_Dmod) as input, please change this path in the script, also change the modality type of your interest. Then script looks for .fg and .bkg file from all the comparisons from this case.
+    - Output: density plots as a pdf file.
+    - Usages: Rscript DensityPlot.R
