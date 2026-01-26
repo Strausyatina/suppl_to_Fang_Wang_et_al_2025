@@ -6,8 +6,8 @@ Contents of the repository for Fang Wang et al. manuscript:
 
 * RNA-seq:
 
-  1. DEG RNA-seq analysis
-  2. DEE RNA-seq analysis
+  1. Differential gene expression (DEG) RNA-seq analysis
+  2. Differential exon expression (DEE) RNA-seq analysis
   3. Gene Ontology
 
 * Cut&Tag:
@@ -19,3 +19,7 @@ Contents of the repository for Fang Wang et al. manuscript:
 
   1. StereoGene-based signal correlation analysis
   2. Association between ChromHMM state changes and differential collapsed exon expression
+
+
+Code contributors: Asia Mendelevich, Katarzyna Sikora, Mohit Navandar
+
