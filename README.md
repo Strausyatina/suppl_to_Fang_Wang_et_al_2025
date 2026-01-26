@@ -1,6 +1,6 @@
 # Scripts, figures and supplementary information for Fang Wang et al (Iovino lab) manuscript.
 
-Contents of the repository for Fang Wang et al. manuscript:
+## Contents of the repository for Fang Wang et al. manuscript
 
 * Panels
 
@@ -21,5 +21,11 @@ Contents of the repository for Fang Wang et al. manuscript:
   2. Association between ChromHMM state changes and differential collapsed exon expression
 
 
-Code contributors: Asia Mendelevich, Katarzyna Sikora, Mohit Navandar
+## Code contributors
+Asia Mendelevich, Katarzyna Sikora, Mohit Navandar
 
+## Reporting bugs
+Please report bugs to the Github [issues](https://github.com/Strausyatina/suppl_to_Fang_Wang_et_al_2025/issues) page.
+
+## License
+[GNU General Public License v3.0](https://github.com/Strausyatina/suppl_to_Fang_Wang_et_al_2025/blob/master/LICENSE)
