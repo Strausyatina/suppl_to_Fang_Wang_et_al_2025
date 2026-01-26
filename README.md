@@ -1,6 +1,6 @@
-# Scripts, figures and supplementary information for Fang Wang et al (Iovino lab) manuscript.
+# Scripts, figures and supplementary information for Fang Wang et al (Iovino lab) manuscript
 
-## Contents of the repository for Fang Wang et al. manuscript
+## Contents of the repository
 
 * Panels
 
@@ -19,6 +19,7 @@
 
   1. StereoGene-based signal correlation analysis
   2. Association between ChromHMM state changes and differential collapsed exon expression
+
 
 
 ## Code contributors
