@@ -29,4 +29,4 @@ Asia Mendelevich, Katarzyna Sikora, Mohit Navandar
 Please report bugs to the Github [issues](https://github.com/Strausyatina/suppl_to_Fang_Wang_et_al_2025/issues) page.
 
 ## License
-[GNU General Public License v3.0](https://github.com/Strausyatina/suppl_to_Fang_Wang_et_al_2025/blob/master/LICENSE)
+[MIT License](https://github.com/Strausyatina/suppl_to_Fang_Wang_et_al_2025/blob/master/LICENSE)
