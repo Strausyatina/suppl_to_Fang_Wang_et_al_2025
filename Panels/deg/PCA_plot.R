@@ -1,13 +1,13 @@
-library(ggplot2)
-
-#set working directory to source file directory as all paths are relative to it
-gwdir<-getSrcDirectory(function(){})[1]
-setwd(gwdir)
-getwd()
-
-# for GO and GV stage oocyte, produce one PCA plot,each
-#for MLL3/4 single and double knockouts should be merged into one matrix and put on one PCA plot
-# all cpm matrices should be log2-transformed with pseudocount of 0.1
+# library(ggplot2)
+# 
+# #set working directory to source file directory as all paths are relative to it
+# gwdir<-getSrcDirectory(function(){})[1]
+# setwd(gwdir)
+# getwd()
+# 
+# # for GO and GV stage oocyte, produce one PCA plot,each
+# #for MLL3/4 single and double knockouts should be merged into one matrix and put on one PCA plot
+# # all cpm matrices should be log2-transformed with pseudocount of 0.1
 
 cpm_files<-dir("../../RNA-seq/DEG/data/",pattern="cpm.id_v*",full.names=TRUE)
 cpm_files<-cpm_files[!grepl("MLL",cpm_files)]
@@ -61,12 +61,12 @@ lapply(pca_input,function(X)sum(is.na(X)))
 #define a vector with number of groups to map PCA plotting function to
 ngroupv<-c(2,2,4)
 
-set_custom_wd<-function(label){
-  wdir<-file.path(gwdir,"PCA_plots",label)
-  system(paste0('mkdir -p ', wdir))
-  setwd(wdir)
-  getwd()
-}
+# set_custom_wd<-function(label){
+#   wdir<-file.path(gwdir,"PCA_plots",label)
+#   system(paste0('mkdir -p ', wdir))
+#   setwd(wdir)
+#   getwd()
+# }
 
 calculate_plot_PCA_2groups<-function(table,label){
   set.seed(123)
@@ -132,19 +132,19 @@ calculate_plot_PCA_4groups<-function(table,label){
 
 
 produce_results<-function(table,label,ngroups){
-  set_custom_wd(label)
+  # set_custom_wd(label)
   if(ngroups==2){calculate_plot_PCA_2groups(table,label)
                  }else{calculate_plot_PCA_4groups(table,label)}
 }
 
 mapply(FUN=function(X,Y,Z)produce_results(X,Y,Z),pca_input,names(pca_input),ngroupv)
 
-#set working directory to source file directory as all paths are relative to it
-gwdir<-getSrcDirectory(function(){})[1]
-setwd(gwdir)
-getwd()
-
-sink("PCA_plots/PCA_sessionInfo.txt")
-sessionInfo()
-sink()
+# #set working directory to source file directory as all paths are relative to it
+# gwdir<-getSrcDirectory(function(){})[1]
+# setwd(gwdir)
+# getwd()
+# 
+# sink("PCA_plots/PCA_sessionInfo.txt")
+# sessionInfo()
+# sink()
 
