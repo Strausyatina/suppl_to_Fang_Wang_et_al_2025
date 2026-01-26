@@ -1,13 +1,13 @@
-# library(ggplot2)
-# 
-# #set working directory to source file directory as all paths are relative to it
-# gwdir<-getSrcDirectory(function(){})[1]
-# setwd(gwdir)
-# getwd()
-# 
-# # for GO and GV stage oocyte, produce one PCA plot,each
-# #for MLL3/4 single and double knockouts should be merged into one matrix and put on one PCA plot
-# # all cpm matrices should be log2-transformed with pseudocount of 0.1
+library(ggplot2)
+
+#set working directory to source file directory as all paths are relative to it
+gwdir<-getwd() #getSrcDirectory(function(){})[1]
+setwd(gwdir)
+getwd()
+
+# for GO and GV stage oocyte, produce one PCA plot,each
+#for MLL3/4 single and double knockouts should be merged into one matrix and put on one PCA plot
+# all cpm matrices should be log2-transformed with pseudocount of 0.1
 
 cpm_files<-dir("../../RNA-seq/DEG/data/",pattern="cpm.id_v*",full.names=TRUE)
 cpm_files<-cpm_files[!grepl("MLL",cpm_files)]
@@ -61,12 +61,29 @@ lapply(pca_input,function(X)sum(is.na(X)))
 #define a vector with number of groups to map PCA plotting function to
 ngroupv<-c(2,2,4)
 
-# set_custom_wd<-function(label){
-#   wdir<-file.path(gwdir,"PCA_plots",label)
-#   system(paste0('mkdir -p ', wdir))
-#   setwd(wdir)
-#   getwd()
-# }
+set_custom_wd<-function(label){
+  wdir<-file.path(gwdir,"PCA_plots",label)
+  print(wdir)
+  system(paste0('mkdir -p ', wdir))
+  setwd(wdir)
+  getwd()
+}
+
+PCA_BASE_SIZE <- 18
+PCA_THEME <- function(legend_pos="top"){
+  theme_classic(base_size = PCA_BASE_SIZE) +
+    theme(
+      axis.text = element_text(size = PCA_BASE_SIZE-2),
+      axis.title = element_text(size = PCA_BASE_SIZE, face = "bold"),
+      legend.position = legend_pos,
+      legend.title = element_blank(),
+      legend.text = element_text(size = PCA_BASE_SIZE-2),
+      plot.title = element_text(size = PCA_BASE_SIZE+2, hjust = 0.5),
+      aspect.ratio = 1,
+      panel.border = element_rect(fill = NA, colour = "black", linewidth = 0.8),
+      axis.line = element_blank()
+    )
+}
 
 calculate_plot_PCA_2groups<-function(table,label){
   set.seed(123)
@@ -78,22 +95,16 @@ calculate_plot_PCA_2groups<-function(table,label){
   plot_data$Group<-factor(plot_data$Group,levels=unique(plot_data$Group))
   z<-summary(res.pca)
   perc_var_explained<-z$importance['Proportion of Variance',1:2]
-  ggplot(plot_data)+geom_point(aes(x=PC1,y=PC2,colour=Group),size=5)+
-  xlab(paste0("PC1: ",round(perc_var_explained[1]*100),"% variance"))+ylab(paste0("PC2: ",round(perc_var_explained[2]*100),"% variance"))+
-  scale_colour_manual(values = c("black", "#D15FEE"))+
-  geom_hline(yintercept = 0, linetype = "dotted", color = "black") + # Horizontal dotted line
-  geom_vline(xintercept = 0, linetype = "dotted", color = "black") + # Vertical dotted line
-  theme_classic(base_size = 12) + # Clean background
-  theme(
-      axis.text = element_text(size = 10),
-      axis.title = element_text(size = 12, face = "bold"),
-      legend.position = "top",
-      legend.title = element_blank(),
-      legend.text = element_text(size = 10),
-      aspect.ratio=1,plot.title = element_text(hjust = 0.5)
-    )+ ggtitle (sprintf("PCA plot on log2 CPMs from  \n Control and Mll3/4 cKO %s stage samples.",gsub("_.+","",label)))
-  ggsave(paste0(label,"_PCA.png"))
-  ggsave(paste0(label,"_PCA.pdf"))
+  p<- ggplot(plot_data)+geom_point(aes(x=PC1,y=PC2,colour=Group),size=5)+
+    xlab(paste0("PC1: ",round(perc_var_explained[1]*100),"% variance"))+ylab(paste0("PC2: ",round(perc_var_explained[2]*100),"% variance"))+
+    scale_colour_manual(values = c("black", "#D15FEE"))+
+    geom_hline(yintercept = 0, linetype = "dotted", color = "black") + # Horizontal dotted line
+    geom_vline(xintercept = 0, linetype = "dotted", color = "black") + # Vertical dotted line
+    theme_classic(base_size = 12) + # Clean background
+    PCA_THEME(legend_pos="top")+ 
+    ggtitle (sprintf("PCA plot on log2 CPMs from  \nControl and Mll3/4 cKO \n%s stage oocyte",gsub("_.+","",label)))
+  ggsave(paste0(label,"_PCA.png"), p, width = 6, height = 6)
+  ggsave(paste0(label,"_PCA.pdf"), p, width = 6, height = 6)
   
 }
 
@@ -110,41 +121,35 @@ calculate_plot_PCA_4groups<-function(table,label){
   plot_data$Group<-factor(plot_data$Group,levels=unique(plot_data$Group))
   z<-summary(res.pca)
   perc_var_explained<-z$importance['Proportion of Variance',1:2]
-  ggplot(plot_data)+geom_point(aes(x=PC1,y=PC2,colour=Group),size=5)+
+  p<- ggplot(plot_data)+geom_point(aes(x=PC1,y=PC2,colour=Group),size=5)+
     xlab(paste0("PC1: ",round(perc_var_explained[1]*100),"% variance"))+ylab(paste0("PC2: ",round(perc_var_explained[2]*100),"% variance"))+
     scale_colour_manual(values = c("black","orange","darkblue", "#D15FEE"))+
     geom_hline(yintercept = 0, linetype = "dotted", color = "black") + # Horizontal dotted line
     geom_vline(xintercept = 0, linetype = "dotted", color = "black") + # Vertical dotted line
     theme_classic(base_size = 12) + # Clean background
-    theme(
-      axis.text = element_text(size = 10),
-      axis.title = element_text(size = 12, face = "bold"),
-      legend.position = "right",
-      legend.title = element_blank(),
-      legend.text = element_text(size = 10),
-      aspect.ratio=1,plot.title = element_text(hjust = 0.5)
-    ) + ggtitle ("PCA plot on log2 CPMs from Control, \n Mll3 cKO, Mll4 cKO and Mll3/4 cKO samples.")
-  ggsave(paste0(label,"_PCA.png"))
-  ggsave(paste0(label,"_PCA.pdf"))
+    PCA_THEME(legend_pos="right") + 
+    ggtitle ("PCA plot on log2 CPMs from Control, \nMll3 cKO, Mll4 cKO and Mll3/4 cKO samples\n")
+  ggsave(paste0(label,"_PCA.png"), p, width = 7, height = 6)
+  ggsave(paste0(label,"_PCA.pdf"), p, width = 7, height = 6)
   
 }
 
 
 
 produce_results<-function(table,label,ngroups){
-  # set_custom_wd(label)
+  set_custom_wd(label)
   if(ngroups==2){calculate_plot_PCA_2groups(table,label)
                  }else{calculate_plot_PCA_4groups(table,label)}
 }
 
 mapply(FUN=function(X,Y,Z)produce_results(X,Y,Z),pca_input,names(pca_input),ngroupv)
 
-# #set working directory to source file directory as all paths are relative to it
+#set working directory to source file directory as all paths are relative to it
 # gwdir<-getSrcDirectory(function(){})[1]
-# setwd(gwdir)
-# getwd()
-# 
-# sink("PCA_plots/PCA_sessionInfo.txt")
-# sessionInfo()
-# sink()
+setwd(gwdir)
+getwd()
+
+sink("PCA_plots/PCA_sessionInfo.txt")
+sessionInfo()
+sink()
 
