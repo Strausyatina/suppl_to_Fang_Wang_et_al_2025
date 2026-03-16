@@ -29,9 +29,11 @@ The script exports:
 - DEG tables filtered at `FDR < 0.05` and `|FC| >= 2`
 - CPM tables for downstream visualization and comparison
 
-Required packages:
+## Required packages:
 
+With version used:
 ```
-tidyverse
-edgeR
+# R version 4.2.3 (2023-03-15)
+tidyverse (tidyverse_1.3.2)
+edgeR (edgeR_3.40.2)
 ```
