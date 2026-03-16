@@ -46,5 +46,7 @@ With version used:
 # R version 4.2.3 (2023-03-15)
 tidyverse (tidyverse_1.3.2)
 edgeR (edgeR_3.40.2)
+ggpointdensity (ggpointdensity_0.1.0)
+car (car_3.1-1)
 ```
 

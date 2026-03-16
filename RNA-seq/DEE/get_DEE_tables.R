@@ -6,6 +6,7 @@
 
 library(tidyverse)
 library(edgeR)
+library(ggpointdensity)
 
 source("../DEG/bias_correcting_support_functions.R")
 

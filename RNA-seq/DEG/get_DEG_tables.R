@@ -6,6 +6,8 @@
 #
 library(tidyverse)
 library(edgeR)
+library(ggpointdensity)
+library(car)
 #
 source("./bias_correcting_support_functions.R")
 #
